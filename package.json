@@ -4,7 +4,8 @@
   "description": "gedcom parser",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx tsc main.ts && node .\\main.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/TrueJu/gedcom-parser/issues"
   },
-  "homepage": "https://github.com/TrueJu/gedcom-parser#readme"
+  "homepage": "https://github.com/TrueJu/gedcom-parser#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "typescript": "^4.9.4"
+  }
 }
