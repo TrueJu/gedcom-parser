@@ -1,32 +1,36 @@
-import {stringLinesToArray} from './parsing-utils';
+import {stringLinesToArray, getLevelOrderRepetition, getEntryByTopLevelName} from './parsing-utils';
 
 const commonPatterns = {
-    headerStartEnd: ["0 HEAD", "\r\n0 @I1@ INDI"]
+    headerStartEnd: ["0 HEAD", "\r\n0 "]
 }
 
-function extractHeader(rawGedcom:string) {
-    const headerInformationStartIndex:number = rawGedcom.indexOf(commonPatterns.headerStartEnd[0]);
-    const headerInformationEndIndex:number = rawGedcom.indexOf(commonPatterns.headerStartEnd[1]);
-
-    return rawGedcom.slice(headerInformationStartIndex, headerInformationEndIndex);
-}
 function arrayAssocLevel(extractedHeader:string) {
     const headerLines:Array<string> = stringLinesToArray(extractedHeader);
-    const headerEntries:Object = {};
+    const repeatingLevelsCount = getLevelOrderRepetition(headerLines);
+    let deepestLevel = 0;
 
     for(let i=0;i<headerLines.length;i++) {
-        if(headerLines[i][0] == '0') {
-            headerEntries[headerLines[i].slice(2, headerLines[i].length)] = {};
-        } else if(headerLines[i][0] == '1') {
-            headerEntries[headerLines[i].slice(2, headerLines[i].length)] = {};
-        }
+        let currentLevel = parseInt(headerLines[i][0]);
+        deepestLevel = deepestLevel > currentLevel ? deepestLevel : currentLevel;
     }
 
-    console.log(headerEntries)
+
+    const levels:Array<any> = [];
+
+    for(let i=0;i<deepestLevel+1;i++) {
+        levels.push([]);
+    }
+
+    for(let i=0;i<headerLines.length;i++) {
+        console.log(i);
+        levels[parseInt(headerLines[i][0])].push(headerLines[i].slice(2, headerLines[i].length));
+    }
+
+    console.log(levels);
 }
 
 export function parseHeader(rawGedcom:string) {
-    const extractedHeaderInformation = extractHeader(rawGedcom);
+    const extractedHeaderInformation = getEntryByTopLevelName(rawGedcom, 'head');
 
     arrayAssocLevel(extractedHeaderInformation);
 }
