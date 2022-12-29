@@ -9,10 +9,9 @@ async function readGedcomFile(fileName:`${string}${'.GED' | '.ged' | 'Ged'}`, en
     }
 }
 
-
-parseHeader
 if(require.main === module) { main(); }
 async function main() {
     const rawGedcom = await readGedcomFile("555SAMPLE.GED");
-    console.log(parseHeader(rawGedcom));
+    
+    parseHeader(rawGedcom);
 }

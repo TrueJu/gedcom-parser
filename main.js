@@ -57,7 +57,6 @@ function readGedcomFile(fileName, encoding) {
         });
     });
 }
-header_parsing_1.parseHeader;
 if (require.main === module) {
     main();
 }
@@ -69,7 +68,7 @@ function main() {
                 case 0: return [4 /*yield*/, readGedcomFile("555SAMPLE.GED")];
                 case 1:
                     rawGedcom = _a.sent();
-                    console.log((0, header_parsing_1.parseHeader)(rawGedcom));
+                    (0, header_parsing_1.parseHeader)(rawGedcom);
                     return [2 /*return*/];
             }
         });
