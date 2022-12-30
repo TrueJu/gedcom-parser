@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var fs = require('fs');
-var header_parsing_1 = require("./src/header-parsing");
+var gedcom_parsing_1 = require("./src/gedcom-parsing");
 function readGedcomFile(fileName, encoding) {
     if (encoding === void 0) { encoding = 'utf-8'; }
     return __awaiter(this, void 0, void 0, function () {
@@ -65,10 +65,10 @@ function main() {
         var rawGedcom;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, readGedcomFile("555SAMPLE.GED")];
+                case 0: return [4 /*yield*/, readGedcomFile("engBRITandQUEN.ged")];
                 case 1:
                     rawGedcom = _a.sent();
-                    (0, header_parsing_1.parseHeader)(rawGedcom);
+                    (0, gedcom_parsing_1.parseGEDCOM)(rawGedcom);
                     return [2 /*return*/];
             }
         });

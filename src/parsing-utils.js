@@ -5,12 +5,12 @@ function stringLinesToArray(stringData) {
     return stringData.split(/\r?\n/);
 }
 exports.stringLinesToArray = stringLinesToArray;
-function gedcomToObject(extractedHeader) {
-    var headerLines = stringLinesToArray(extractedHeader);
+function gedcomToObject(rawGEDCOM) {
+    var dataLines = stringLinesToArray(rawGEDCOM);
     var tmpGedcomObj = {};
     var previousParentKeys = [];
-    for (var i = 0; i < headerLines.length; i++) {
-        var parts = headerLines[i].trim().split(' ');
+    for (var i = 0; i < dataLines.length; i++) {
+        var parts = dataLines[i].trim().split(' ');
         var level = parseInt(parts[0]);
         var key = parts[1];
         var value = parts.slice(2).join(' ');
@@ -36,8 +36,9 @@ function gedcomToObject(extractedHeader) {
 }
 exports.gedcomToObject = gedcomToObject;
 function getEntryByTopLevelName(rawGedcom, topLevelName) {
-    var headerInformationStartIndex = rawGedcom.indexOf("0 ".concat(topLevelName.toUpperCase()));
-    var headerInformationEndIndex = rawGedcom.indexOf('\r\n0 ');
-    return rawGedcom.slice(headerInformationStartIndex, headerInformationEndIndex);
+    var dataInformationStartIndex = rawGedcom.indexOf("0 ".concat(topLevelName.toUpperCase()));
+    rawGedcom = rawGedcom.slice(dataInformationStartIndex);
+    var dataInformationEndIndex = rawGedcom.indexOf('\r\n0 ');
+    return rawGedcom.slice(0, dataInformationEndIndex);
 }
 exports.getEntryByTopLevelName = getEntryByTopLevelName;

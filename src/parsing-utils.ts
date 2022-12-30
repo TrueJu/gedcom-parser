@@ -1,14 +1,14 @@
 export function stringLinesToArray(stringData:string) {
     return stringData.split(/\r?\n/);
 }
-export function gedcomToObject(extractedHeader:string) {
-    const headerLines:Array<string> = stringLinesToArray(extractedHeader);
+export function gedcomToObject(rawGEDCOM:string) {
+    const dataLines:Array<string> = stringLinesToArray(rawGEDCOM);
 
     let tmpGedcomObj = {};
     let previousParentKeys:any = [];
     
-    for(let i=0;i<headerLines.length;i++) {
-        let parts = headerLines[i].trim().split(' ');
+    for(let i=0;i<dataLines.length;i++) {
+        let parts = dataLines[i].trim().split(' ');
         let level = parseInt(parts[0]);
         let key = parts[1];
         let value = parts.slice(2).join(' ');
@@ -38,8 +38,9 @@ export function gedcomToObject(extractedHeader:string) {
     return gedcomObject;
 }
 export function getEntryByTopLevelName(rawGedcom:string, topLevelName:string) {
-    const headerInformationStartIndex:number = rawGedcom.indexOf(`0 ${topLevelName.toUpperCase()}`);
-    const headerInformationEndIndex:number = rawGedcom.indexOf('\r\n0 ');
+    const dataInformationStartIndex:number = rawGedcom.indexOf(`0 ${topLevelName.toUpperCase()}`);
+    rawGedcom = rawGedcom.slice(dataInformationStartIndex)
+    const dataInformationEndIndex:number = rawGedcom.indexOf('\r\n0 ');
 
-    return rawGedcom.slice(headerInformationStartIndex, headerInformationEndIndex);
+    return rawGedcom.slice(0, dataInformationEndIndex);
 }

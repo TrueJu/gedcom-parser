@@ -1,5 +1,5 @@
 const fs = require('fs');
-import {parseHeader} from './src/header-parsing';
+import {parseGEDCOM} from './src/gedcom-parsing';
 
 async function readGedcomFile(fileName:`${string}${'.GED' | '.ged' | 'Ged'}`, encoding:string='utf-8') {
     try {
@@ -11,7 +11,7 @@ async function readGedcomFile(fileName:`${string}${'.GED' | '.ged' | 'Ged'}`, en
 
 if(require.main === module) { main(); }
 async function main() {
-    const rawGedcom = await readGedcomFile("555SAMPLE.GED");
+    const rawGedcom = await readGedcomFile("engBRITandQUEN.ged");
     
-    parseHeader(rawGedcom);
+    parseGEDCOM(rawGedcom);
 }
