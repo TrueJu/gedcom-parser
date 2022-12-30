@@ -11,7 +11,7 @@ async function readGedcomFile(fileName:`${string}${'.GED' | '.ged' | 'Ged'}`, en
 
 if(require.main === module) { main(); }
 async function main() {
-    const rawGedcom = await readGedcomFile("engBRITandQUEN.ged");
+    const rawGedcom = await readGedcomFile("engBRITandQUEN.ged"); //555SAMPLE.GED    engBRITandQUEN.ged
     
     parseGEDCOM(rawGedcom);
 }
